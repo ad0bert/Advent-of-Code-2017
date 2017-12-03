@@ -65,7 +65,7 @@ public class Dec3Main {
             doneSteps++;
             if (field[i][j] > size) {
                 System.out.println("Res Part Two: " + field[i][j]);
-                System.exit(0);
+                break;
             }
             if (steps.equals(doneSteps)) {
                 doneSteps = 0;
@@ -77,7 +77,10 @@ public class Dec3Main {
                     doneSteps++;
                     if (field[i][j] > size) {
                         System.out.println("Res Part Two: " + field[i][j]);
-                        System.exit(0);
+                        // may good forgive me
+                        // trigger outer loop bound condition
+                        i = dimension + 2;
+                        break;
                     }
                     if (steps.equals(doneSteps)) {
                         doneSteps = 0;
@@ -87,8 +90,6 @@ public class Dec3Main {
                 }
             }
         }
-
-        System.out.println("Res Part Two: " + currStep);
 
         res = Math.abs((startPosX - endPosX)) + Math.abs((startPosY - endPosY));
 
@@ -157,10 +158,10 @@ public class Dec3Main {
         Integer size4 = 1024;
         Integer size5 = 289326;
 
-        // System.out.println("Res for " + size1 + ": " + calc(size1) + "\n");
-        // System.out.println("Res for " + size2 + ": " + calc(size2) + "\n");
-        // System.out.println("Res for " + size3 + ": " + calc(size3) + "\n");
-        // System.out.println("Res for " + size4 + ": " + calc(size4) + "\n");
+        System.out.println("Res for " + size1 + ": " + calc(size1) + "\n");
+        System.out.println("Res for " + size2 + ": " + calc(size2) + "\n");
+        System.out.println("Res for " + size3 + ": " + calc(size3) + "\n");
+        System.out.println("Res for " + size4 + ": " + calc(size4) + "\n");
         System.out.println("Res for " + size5 + ": " + calc(size5) + "\n");
     }
 }
