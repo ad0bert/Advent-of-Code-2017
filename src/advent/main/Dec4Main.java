@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,10 +27,13 @@ public class Dec4Main {
     }
 
     public static void main(String[] args) {
-        List<List<String>> input = new ArrayList<List<String>>();
+        List<List<String>> input1 = new ArrayList<List<String>>();
+        List<List<String>> input2 = new ArrayList<List<String>>();
         try {
-            init(input, new File("input5.txt"));
-            System.out.println(cntValid(input));
+            init(input1, new File("input5.txt"));
+            init(input2, new File("input6.txt"));
+            System.out.println(cntValid1(input1));
+            System.out.println(cntValid2(input2));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -37,13 +41,38 @@ public class Dec4Main {
         }
     }
 
-    private static int cntValid(List<List<String>> input) {
+    private static int cntValid1(List<List<String>> input) {
         int res = 0;
         boolean duplicate = false;
         for (List<String> list : input) {
+            duplicate = false;
             Set<String> set = new HashSet<String>();
             for (String s : list) {
                 if (!set.add(s)) {
+                    duplicate = true;
+                    break;
+                }
+            }
+            if (!duplicate) {
+                res++;
+            }
+        }
+
+        return res;
+
+    }
+
+    private static int cntValid2(List<List<String>> input) {
+        int res = 0;
+        boolean duplicate = false;
+        for (List<String> list : input) {
+            duplicate = false;
+            Set<String> set = new HashSet<String>();
+            for (String s : list) {
+                char[] charArray = s.toCharArray();
+                Arrays.sort(charArray);
+                String sortedString = new String(charArray);
+                if (!set.add(sortedString)) {
                     duplicate = true;
                     break;
                 }
