@@ -8,8 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import advent.util.day7.Node;
+
 public class FileInputReader {
-    public static void readIntegerLineHorizontal(List<Integer> input, File f) throws FileNotFoundException, IOException {
+    public static void readIntegerLineHorizontal(List<Integer> input, File f)
+            throws FileNotFoundException, IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -28,6 +31,17 @@ public class FileInputReader {
                 input.add(Integer.parseInt(line));
             }
         }
+    }
+
+    public static List<String> readStringLineVertical(File f) throws FileNotFoundException, IOException {
+        List<String> res = new ArrayList<String>();
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                res.add(line);
+            }
+        }
+        return res;
     }
 
     public static List<Node> readTree(File f) throws FileNotFoundException, IOException {

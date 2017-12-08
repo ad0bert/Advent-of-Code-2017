@@ -22,8 +22,8 @@ public class Dec5Main {
         List<Integer> input1 = new ArrayList<Integer>();
         List<Integer> input2 = new ArrayList<Integer>();
         try {
-            init(input1, new File("input7.txt"));
-            init(input2, new File("input8.txt"));
+            init(input1, new File("./resources/inputDay5/input1.txt"));
+            init(input2, new File("./resources/inputDay5/input2.txt"));
             System.out.println(cntValid1(input1));
             System.out.println(cntValid2(input2));
         } catch (FileNotFoundException e) {

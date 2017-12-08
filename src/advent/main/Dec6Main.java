@@ -25,8 +25,8 @@ public class Dec6Main {
         List<Integer> input1 = new ArrayList<Integer>();
         List<Integer> input2 = new ArrayList<Integer>();
         try {
-            init(input1, new File("input9.txt"));
-            init(input2, new File("input10.txt"));
+            init(input1, new File("./resources/inputDay6/input1.txt"));
+            init(input2, new File("./resources/inputDay6/input2.txt"));
             System.out.println(redestribute1(input1));
             System.out.println(redestribute2(input2));
         } catch (FileNotFoundException e) {

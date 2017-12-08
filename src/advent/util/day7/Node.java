@@ -1,4 +1,4 @@
-package advent.util;
+package advent.util.day7;
 
 import java.util.ArrayList;
 import java.util.Collections;

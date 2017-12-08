@@ -30,8 +30,8 @@ public class Dec4Main {
         List<List<String>> input1 = new ArrayList<List<String>>();
         List<List<String>> input2 = new ArrayList<List<String>>();
         try {
-            init(input1, new File("input5.txt"));
-            init(input2, new File("input6.txt"));
+            init(input1, new File("./resources/inputDay4/input1.txt"));
+            init(input2, new File("./resources/inputDay4/input2.txt"));
             System.out.println(cntValid1(input1));
             System.out.println(cntValid2(input2));
         } catch (FileNotFoundException e) {

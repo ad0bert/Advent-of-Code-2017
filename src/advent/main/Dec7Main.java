@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.List;
 
 import advent.util.FileInputReader;
-import advent.util.Node;
+import advent.util.day7.Node;
 
 public class Dec7Main {
     public static void main(String[] args) {
         try {
-            List<Node> treeList1 = FileInputReader.readTree(new File("input11.txt"));
-            List<Node> treeList2 = FileInputReader.readTree(new File("input12.txt"));
+            List<Node> treeList1 = FileInputReader.readTree(new File("./resources/inputDay7/input1.txt"));
+            List<Node> treeList2 = FileInputReader.readTree(new File("./resources/inputDay7/input2.txt"));
             Node tree1 = buildTree(treeList1);
             Node tree2 = buildTree(treeList2);
             System.out.println(tree1.getName());
