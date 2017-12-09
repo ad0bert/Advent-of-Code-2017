@@ -63,4 +63,12 @@ public class FileInputReader {
         }
         return input;
     }
+
+    public static String readSingleLineAsString(File file) throws IOException {
+        String res;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            res = br.readLine();
+        }
+        return res;
+    }
 }
