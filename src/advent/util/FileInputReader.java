@@ -11,17 +11,19 @@ import java.util.List;
 import advent.util.day7.Node;
 
 public class FileInputReader {
-    public static void readIntegerLineHorizontal(List<Integer> input, File f)
+    public static List<Integer> readIntegerLineHorizontal(String seperatorRegex, File f)
             throws FileNotFoundException, IOException {
+        List<Integer> res = new ArrayList<Integer>();
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] entries = line.split("\\s+");
+                String[] entries = line.split(seperatorRegex);
                 for (String s : entries) {
-                    input.add(Integer.parseInt(s));
+                    res.add(Integer.parseInt(s));
                 }
             }
         }
+        return res;
     }
 
     public static void readIntegerLineVertical(List<Integer> input, File f) throws FileNotFoundException, IOException {
