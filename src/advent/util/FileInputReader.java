@@ -35,6 +35,21 @@ public class FileInputReader {
         }
     }
 
+    public static List<String> readStringLineVertical(String seperator, File f)
+            throws FileNotFoundException, IOException {
+        List<String> res = new ArrayList<String>();
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] seperated = line.split(seperator);
+                for (String s : seperated) {
+                    res.add(s);
+                }
+            }
+        }
+        return res;
+    }
+
     public static List<String> readStringLineVertical(File f) throws FileNotFoundException, IOException {
         List<String> res = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
