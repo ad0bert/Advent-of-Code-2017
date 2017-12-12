@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import advent.util.day7.Node;
 
@@ -85,6 +87,24 @@ public class FileInputReader {
         String res;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             res = br.readLine();
+        }
+        return res;
+    }
+
+    public static Map<Integer, List<Integer>> readMapLineByLine(String mapSeperator, String listSeperator, File file)
+            throws FileNotFoundException, IOException {
+        Map<Integer, List<Integer>> res = new HashMap<Integer, List<Integer>>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] mapString = line.split(mapSeperator);
+                String[] listEntries = mapString[1].split(listSeperator);
+                Integer key = Integer.parseInt(mapString[0].trim());
+                res.put(key, new ArrayList<Integer>());
+                for (String s : listEntries) {
+                    res.get(key).add(Integer.parseInt(s.trim()));
+                }
+            }
         }
         return res;
     }
