@@ -108,4 +108,25 @@ public class FileInputReader {
         }
         return res;
     }
+    public static List<Integer> readIntegerLineVerticalDay13(String seperator, File file) throws FileNotFoundException, IOException {
+        List<Integer> res = new ArrayList<Integer>();
+        int cnt = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] input = line.split(seperator);
+                if (Integer.parseInt(input[0]) == cnt) {
+                    res.add(Integer.parseInt(input[1]));
+                } else {
+                    while (Integer.parseInt(input[0]) > res.size()) {
+                        res.add(0);
+                        cnt++;
+                    }
+                    res.add(Integer.parseInt(input[1]));
+                }
+                cnt++;
+            }
+        }
+        return res;
+    }
 }
