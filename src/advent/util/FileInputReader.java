@@ -108,7 +108,9 @@ public class FileInputReader {
         }
         return res;
     }
-    public static List<Integer> readIntegerLineVerticalDay13(String seperator, File file) throws FileNotFoundException, IOException {
+
+    public static List<Integer> readIntegerLineVerticalDay13(String seperator, File file)
+            throws FileNotFoundException, IOException {
         List<Integer> res = new ArrayList<Integer>();
         int cnt = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

@@ -81,7 +81,7 @@ public class Dec10Main {
         return res;
     }
 
-    private static String runCalcPart2(String input) {
+    public static String runCalcPart2(String input) {
         int[] arr = createAndInitIntArray(256);
         List<Integer> inputList = createASCIIList(input);
         init();
