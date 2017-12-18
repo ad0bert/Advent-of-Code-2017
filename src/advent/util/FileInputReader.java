@@ -37,7 +37,7 @@ public class FileInputReader {
         }
     }
 
-    public static List<String> readStringLineVertical(String seperator, File f)
+    public static List<String> readStringLineHorizontal(String seperator, File f)
             throws FileNotFoundException, IOException {
         List<String> res = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
