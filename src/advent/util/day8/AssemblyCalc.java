@@ -3,7 +3,6 @@ package advent.util.day8;
 import java.util.Map;
 
 public class AssemblyCalc {
-
     private String varName;
     private Operator operator;
     private Integer value;
@@ -25,20 +24,20 @@ public class AssemblyCalc {
 
     private boolean checkCondition(Integer value) {
         switch (this.operation) {
-        case EQU:
-            return value.equals(this.rightHand);
-        case NEQ:
-            return !value.equals(this.rightHand);
-        case LSS:
-            return value < this.rightHand;
-        case LEQ:
-            return value <= this.rightHand;
-        case GRT:
-            return value > this.rightHand;
-        case GEQ:
-            return value >= this.rightHand;
-        default:
-            return false;
+            case EQU:
+                return value.equals(this.rightHand);
+            case NEQ:
+                return !value.equals(this.rightHand);
+            case LSS:
+                return value < this.rightHand;
+            case LEQ:
+                return value <= this.rightHand;
+            case GRT:
+                return value > this.rightHand;
+            case GEQ:
+                return value >= this.rightHand;
+            default:
+                return false;
         }
     }
 
@@ -47,16 +46,16 @@ public class AssemblyCalc {
         if (!checkCondition(leftValue)) {
             return;
         }
-
         switch (this.operator) {
-        case INC:
-            stack.put(this.varName, stack.get(this.varName) + this.value);
-            break;
-        case DEC:
-            stack.put(this.varName, stack.get(this.varName) - this.value);
-            break;
+            case INC:
+                stack.put(this.varName, stack.get(this.varName) + this.value);
+                break;
+            case DEC:
+                stack.put(this.varName, stack.get(this.varName) - this.value);
+                break;
+            default:
+                break;
         }
-
     }
 
     public String getVarName() {
