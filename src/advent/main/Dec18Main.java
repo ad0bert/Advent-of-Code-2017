@@ -3,6 +3,7 @@ package advent.main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,14 +17,11 @@ public class Dec18Main {
     private static final String inputFile1 = "./resources/inputDay18/input1.txt";
     private static final String inputFile2 = "./resources/inputDay18/input2.txt";
 
-    private static boolean isWaiting1 = false;
-    private static boolean isWaiting2 = false;
+    private static List<Boolean> waitingList = new ArrayList<>();
+    private static List<Long> sendCntList = new ArrayList<>();
+    private static List<Queue<Long>> queueList = new ArrayList<>();
 
-    private static long sendCnt1 = 0L;
-    private static long sendCnt2 = 0L;
-
-    private static Queue<Long> queue1;
-    private static Queue<Long> queue2;
+    private static final String INT_REGEX = "^[+-]?\\d+$";
 
     public static void main(String[] args) {
         try {
@@ -46,18 +44,18 @@ public class Dec18Main {
         long val = 0;
         while (pos < input.size()) {
             String[] line = input.get(pos++).split("\\s");
-            if ((values.get(line[1]) == null) && !line[1].matches("^[+-]?\\d+$")) {
-                values.put(line[1], pid - 1L);
+            if ((values.get(line[1]) == null) && !line[1].matches(INT_REGEX)) {
+                values.put(line[1], (long) pid);
             }
-            val = line[line.length - 1].matches("^[+-]?\\d+$") ? Long.parseLong(line[line.length - 1])
+            val = line[line.length - 1].matches(INT_REGEX) ? Long.parseLong(line[line.length - 1])
                     : values.get(line[line.length - 1]);
             switch (Operator.getEnum(line[0])) {
             case ADD:
                 values.put(line[1], values.get(line[1]) + val);
                 break;
             case JGZ:
-                long fuckU = line[1].matches("^[+-]?\\d+$") ? Long.parseLong(line[1]) : values.get(line[1]);
-                pos += fuckU > 0 ? (val - 1) : 0;
+                long comperValue = line[1].matches(INT_REGEX) ? Long.parseLong(line[1]) : values.get(line[1]);
+                pos += comperValue > 0 ? (val - 1) : 0;
                 break;
             case MOD:
                 values.put(line[1], values.get(line[1]) % val);
@@ -67,39 +65,22 @@ public class Dec18Main {
                 break;
             case RCV:
                 Long reciveVal = null;
-                if (pid == 1) {
-                    isWaiting1 = queue2.isEmpty();
-                    do {
-                        if (isWaiting1 && isWaiting2) {
-                            return;
-                        }
-                        reciveVal = queue2.poll();
-                    } while (reciveVal == null);
-                    isWaiting1 = false;
-                    values.put(line[1], reciveVal);
-                } else {
-                    isWaiting2 = queue1.isEmpty();
-                    do {
-                        if (isWaiting1 && isWaiting2) {
-                            return;
-                        }
-                        reciveVal = queue1.poll();
-                    } while (reciveVal == null);
-                    isWaiting2 = false;
-                    values.put(line[1], reciveVal);
-                }
+                waitingList.set(pid, queueList.get(other).isEmpty());
+                do {
+                    if (waitingList.get(pid) && waitingList.get(other)) {
+                        return;
+                    }
+                    reciveVal = queueList.get(other).poll();
+                } while (reciveVal == null);
+                waitingList.set(pid, false);
+                values.put(line[1], reciveVal);
                 break;
             case SET:
                 values.put(line[1], val);
                 break;
             case SND:
-                if (pid == 1) {
-                    sendCnt1++;
-                    queue1.add(val);
-                } else if (pid == 2) {
-                    sendCnt2++;
-                    queue2.add(val);
-                }
+                sendCntList.set(pid, sendCntList.get(pid) + 1);
+                queueList.get(pid).add(val);
                 break;
             default:
                 break;
@@ -118,7 +99,7 @@ public class Dec18Main {
             if (values.get(line[1]) == null) {
                 values.put(line[1], 0L);
             }
-            val = line[line.length - 1].matches("^[+-]?\\d+$") ? Long.parseLong(line[line.length - 1])
+            val = line[line.length - 1].matches(INT_REGEX) ? Long.parseLong(line[line.length - 1])
                     : values.get(line[line.length - 1]);
             switch (Operator.getEnum(line[0])) {
             case ADD:
@@ -151,30 +132,29 @@ public class Dec18Main {
         }
     }
 
-    private static void init() {
-        isWaiting1 = false;
-        isWaiting2 = false;
-
-        sendCnt1 = 0L;
-        sendCnt2 = 0L;
-
-        queue1 = new LinkedBlockingQueue<>();
-        queue2 = new LinkedBlockingQueue<>();
-
+    private static void init(int amount) {
+        waitingList = new ArrayList<>();
+        sendCntList = new ArrayList<>();
+        queueList = new ArrayList<>();
+        for (int i = 0; i < amount; ++i) {
+            waitingList.add(false);
+            sendCntList.add(0L);
+            queueList.add(new LinkedBlockingQueue<>());
+        }
     }
 
     private static void calc2(List<String> input) {
-        init();
+        init(2);
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                program(input, 1, 2);
+                program(input, 0, 1);
             }
         });
         Thread t2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                program(input, 2, 1);
+                program(input, 1, 0);
             }
         });
         t1.start();
@@ -187,7 +167,7 @@ public class Dec18Main {
             e.printStackTrace();
         }
 
-        System.out.println(sendCnt1);
-        System.out.println(sendCnt2);
+        System.out.println(sendCntList.get(0));
+        System.out.println(sendCntList.get(1));
     }
 }
