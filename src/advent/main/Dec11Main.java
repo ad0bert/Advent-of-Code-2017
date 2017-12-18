@@ -13,8 +13,8 @@ public class Dec11Main {
 
     public static void main(String[] args) {
         try {
-            List<String> input1 = FileInputReader.readStringLineVertical(",", new File(inputFile1));
-            List<String> input2 = FileInputReader.readStringLineVertical(",", new File(inputFile2));
+            List<String> input1 = FileInputReader.readStringLineHorizontal(",", new File(inputFile1));
+            List<String> input2 = FileInputReader.readStringLineHorizontal(",", new File(inputFile2));
             calcPart1(input1);
             calcPart1(input2);
         } catch (FileNotFoundException e) {
