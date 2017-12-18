@@ -14,8 +14,8 @@ public class Dec16Main {
 
     public static void main(String[] args) {
         try {
-            List<String> input1 = FileInputReader.readStringLineVertical(",", new File(inputFile1));
-            List<String> input2 = FileInputReader.readStringLineVertical(",", new File(inputFile2));
+            List<String> input1 = FileInputReader.readStringLineHorizontal(",", new File(inputFile1));
+            List<String> input2 = FileInputReader.readStringLineHorizontal(",", new File(inputFile2));
 
             System.out.println(String.copyValueOf(calc1(input1, PROGRAMS1.toCharArray())));
             System.out.println(String.copyValueOf(calc1(input2, PROGRAMS2.toCharArray())));
