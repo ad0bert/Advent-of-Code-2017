@@ -22,7 +22,7 @@ public class Dec21Main {
 			String picture = ".#./..#/###";
 			calc1(picture, createRuleBook(input1), 2);
 			calc1(picture, createRuleBook(input2), 5);
-			//calc1(picture, createRuleBook(input2), 18);
+			calc1(picture, createRuleBook(input2), 18);
 			calc2();
 			calc2();
 		} catch (FileNotFoundException e) {
@@ -61,8 +61,9 @@ public class Dec21Main {
 				pictureBuffer.add(lineBuffer);
 			}
 			picture = buildNewPicture(pictureBuffer, size + 1);
-			printPicture(picture);
+			System.out.println(steps);
 		}
+		printPicture(picture);
 		System.out.println(countPixels(picture, '#'));
 	}
 
